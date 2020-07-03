@@ -1,5 +1,6 @@
 import sys  # sys нужен для передачи argv в QApplication
 from PyQt5 import QtWidgets
+from PyQt5 import sip
 import design1
 import paramiko
 import time
@@ -13,27 +14,28 @@ class ExampleApp(QtWidgets.QMainWindow, design1.Ui_Dialog):
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
         self.connectButton.pressed.connect(self.connectUI)
         self.foundID.pressed.connect(self.foundIDSHH)
-        self.ip = self.domainSSH.text()
-        self.user = self.loginSSH.text()
-        self.password = self.passwordSSH.text()
-        self.port = 8023
+        self.pushButton.pressed.connect(self.foundShortID)
 
     def output_message(self, message_to_ui):
         self.outputWindow.setText(message_to_ui)
 
     def connectUI(self):
+        ip = self.domainSSH.text()
+        user = self.loginSSH.text()
+        password = self.passwordSSH.text()
+        port = 8023
         try:
             client = paramiko.SSHClient()
             client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             client.connect(
-                hostname=self.ip,
-                username=self.user,
-                password=self.password,
-                port=self.port,
+                hostname=ip,
+                username=user,
+                password=password,
+                port=port,
                 look_for_keys=False)
             with client.invoke_shell() as ssh:
                 time.sleep(0.5)
-                print(ssh.recv(300).decode('utf8'))
+                print(ssh.recv(1000).decode('utf8'))
             message_to_ui = "Подключение удалось."
         except:
             message_to_ui = "Не правильно введен логин, пароль или домен."
@@ -42,22 +44,58 @@ class ExampleApp(QtWidgets.QMainWindow, design1.Ui_Dialog):
 
     def foundIDSHH(self):
         number = self.numberSSH.text()
+        domain = self.foundDomainSSH.text()
+        ip = self.domainSSH.text()
+        user = self.loginSSH.text()
+        password = self.passwordSSH.text()
+        port = 8023
+        send_mes = 'domain/' + domain + '/trace/list --addr ' + number + '\n'
         try:
             client = paramiko.SSHClient()
             client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             client.connect(
-                hostname=self.ip,
-                username=self.user,
-                password=self.password,
-                port=self.port,
+                hostname=ip,
+                username=user,
+                password=password,
+                port=port,
                 look_for_keys=False)
             with client.invoke_shell() as ssh:
+                ssh.send(send_mes)
                 time.sleep(0.5)
-                print(ssh.recv(300).decode('utf8'))
-            message_to_ui = "Подключение удалось."
+            message_to_ui = ssh.recv(10000).decode('utf8')
         except:
-            message_to_ui = "Не правильно введен логин, пароль или домен."
+            message_to_ui = "Подключение не удалось"
+        self.output_message(message_to_ui)
 
+    def foundShortID(self):
+        shortID = self.shortID.text()
+        domain = self.foundDomainSSH.text()
+        ip = self.domainSSH.text()
+        user = self.loginSSH.text()
+        password = self.passwordSSH.text()
+        port = 8023
+        send_mes = 'domain/' + domain + '/trace/show --Te ' + shortID + ' --payload\n'
+        try:
+            client = paramiko.SSHClient()
+            client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            client.connect(
+                hostname=ip,
+                username=user,
+                password=password,
+                port=port,
+                look_for_keys=False)
+            with client.invoke_shell() as ssh:
+                ssh.send(send_mes)
+                time.sleep(0.5)
+                '''ssh.recv(120).decode('utf8')'''
+                message_to_ui = ssh.recv(10000000).decode("utf-8")
+                file = open('log-' + time.strftime("%Y-%m-%d-%H.%M.%S", time.localtime()) + '.txt', 'w')
+                file.write(''.join(message_to_ui))
+                file.close()
+        except:
+            message_to_ui = "Подключение не удалось"
+        print(message_to_ui)
+        self.output_message(message_to_ui)
 
 
 def main():

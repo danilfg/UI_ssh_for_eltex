@@ -14,9 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(844, 590)
+        Dialog.resize(1340, 860)
         self.groupBox_5 = QtWidgets.QGroupBox(Dialog)
-        self.groupBox_5.setGeometry(QtCore.QRect(-1, -1, 851, 591))
+        self.groupBox_5.setGeometry(QtCore.QRect(-1, -1, 1341, 861))
         self.groupBox_5.setTitle("")
         self.groupBox_5.setObjectName("groupBox_5")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.groupBox_5)
@@ -62,7 +62,10 @@ class Ui_Dialog(object):
         self.gridLayout_3.addWidget(self.numberSSH, 0, 0, 1, 1)
         self.foundID = QtWidgets.QPushButton(self.groupBox_2)
         self.foundID.setObjectName("foundID")
-        self.gridLayout_3.addWidget(self.foundID, 1, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.foundID, 2, 0, 1, 1)
+        self.foundDomainSSH = QtWidgets.QLineEdit(self.groupBox_2)
+        self.foundDomainSSH.setObjectName("foundDomainSSH")
+        self.gridLayout_3.addWidget(self.foundDomainSSH, 1, 0, 1, 1)
         self.gridLayout_2.addWidget(self.groupBox_2, 0, 1, 1, 1)
         self.groupBox_4 = QtWidgets.QGroupBox(self.groupBox_3)
         self.groupBox_4.setObjectName("groupBox_4")
@@ -78,7 +81,7 @@ class Ui_Dialog(object):
         self.verticalLayout.addWidget(self.groupBox_3)
         self.outputWindow = QtWidgets.QTextBrowser(self.groupBox_5)
         font = QtGui.QFont()
-        font.setFamily("Arial")
+        font.setFamily("Consolas")
         self.outputWindow.setFont(font)
         self.outputWindow.setMouseTracking(True)
         self.outputWindow.setLayoutDirection(QtCore.Qt.LeftToRight)
@@ -95,15 +98,17 @@ class Ui_Dialog(object):
         self.groupBox.setTitle(_translate("Dialog", "Аутентификация"))
         self.label.setText(_translate("Dialog", "Логин:"))
         self.label_2.setText(_translate("Dialog", "Домен:"))
+        self.domainSSH.setText(_translate("Dialog", "ssw.gravitel.ru"))
         self.label_3.setText(_translate("Dialog", "Пароль:"))
         self.connectButton.setText(_translate("Dialog", "Подключиться"))
-        self.groupBox_2.setTitle(_translate("Dialog", "Введите номер"))
-        self.numberSSH.setText(_translate("Dialog", "79999999999"))
+        self.groupBox_2.setTitle(_translate("Dialog", "Поиск Short ID"))
+        self.numberSSH.setText(_translate("Dialog", "номер"))
         self.foundID.setText(_translate("Dialog", "Найти ID"))
+        self.foundDomainSSH.setText(_translate("Dialog", "gravitel.aicall.ru"))
         self.groupBox_4.setTitle(_translate("Dialog", "Введите Short ID"))
         self.pushButton.setText(_translate("Dialog", "Найти лог"))
         self.outputWindow.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Arial\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Consolas\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Arial\';\"><br /></p></body></html>"))
