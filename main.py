@@ -1,12 +1,11 @@
 import sys  # sys нужен для передачи argv в QApplication
 from PyQt5 import QtWidgets
-from PyQt5 import sip
-import design1
+import design
 import paramiko
 import time
 
 
-class ExampleApp(QtWidgets.QMainWindow, design1.Ui_Dialog):
+class ExampleApp(QtWidgets.QMainWindow, design.Ui_Dialog):
     def __init__(self):
         # Это здесь нужно для доступа к переменным, методам
         # и т.д. в файле design.py
