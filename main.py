@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets
 import design
 import paramiko
 import time
+import re
 
 
 class ExampleApp(QtWidgets.QMainWindow, design.Ui_Dialog):
@@ -62,6 +63,7 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_Dialog):
                 ssh.send(send_mes)
                 time.sleep(0.5)
             message_to_ui = ssh.recv(10000).decode('utf8')
+            message_to_ui = re.sub("\[\d+m", '', ''.join(message_to_ui))
         except:
             message_to_ui = "Подключение не удалось"
         self.output_message(message_to_ui)
@@ -88,7 +90,9 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_Dialog):
                 time.sleep(0.5)
                 '''ssh.recv(120).decode('utf8')'''
                 message_to_ui = ssh.recv(10000000).decode("utf-8")
-                file = open('log-' + time.strftime("%Y-%m-%d-%H.%M.%S", time.localtime()) + '.txt', 'w')
+                message_to_ui = re.sub("\[\d+m", '', ''.join(message_to_ui))
+                print(message_to_ui)
+                file = open('log-' + shortID + '_' + time.strftime("%Y-%m-%d-%H.%M.%S", time.localtime()) + '.txt', 'w')
                 file.write(''.join(message_to_ui))
                 file.close()
         except:
