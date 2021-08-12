@@ -1,5 +1,0 @@
-nd@[mycelium1@ecss1#ECSS 010286]:/$ domain/gravitel.aicall.ru/trace/show --Te 26264067 --payload
-No trace found
-
-[exec at: 06.07.2020 12:05:24, exec time: 12ms, nodes: core1@ecss1]
-nd@[mycelium1@ecss1#ECSS 010286]:/$ 
